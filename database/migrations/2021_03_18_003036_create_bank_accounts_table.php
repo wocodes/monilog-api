@@ -17,6 +17,7 @@ class CreateBankAccountsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bank_id');
+            $table->string('name');
             $table->string('number');
             $table->enum('type', ['savings', 'current'])->default('savings');
             $table->boolean('active')->default(1);

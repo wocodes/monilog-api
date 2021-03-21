@@ -26,7 +26,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
 Route::middleware('auth:api')->group(function ($router) {
     Route::prefix('user')->group(function($router) {
-        Route::post('bank\account', 'BankAccountController@store');
+        Route::post('bank/account', 'BankAccountController@store');
     });
 
     Route::prefix('banks')->group(function($router) {

@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
+use App\Repositories\BankAccountRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BankAccountController extends Controller
 {
+
+    public $bankAccountRepo;
+
+    public function __construct(BankAccountRepository $bankAccountRepository)
+    {
+        $this->bankAccountRepo = $bankAccountRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,11 +41,13 @@ class BankAccountController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $account = $this->bankAccountRepo->create($request);
+
+        return \response()->json(['data' => $account, 'message' => 'Successful']);
     }
 
     /**

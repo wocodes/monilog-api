@@ -16,7 +16,7 @@ class BaseRepository implements BaseInterface
         $this->model = $model;
     }
 
-    public function create()
+    public function create($request)
     {
         // TODO: Implement create() method.
     }
@@ -26,7 +26,7 @@ class BaseRepository implements BaseInterface
         return $this->model->all();
     }
 
-    public function update()
+    public function update($request)
     {
         // TODO: Implement update() method.
     }

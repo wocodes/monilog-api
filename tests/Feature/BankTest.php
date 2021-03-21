@@ -39,24 +39,23 @@ class BankTest extends TestCase
 
 
 
-//
-//    public function testUserCanSaveBankAccountDetail()
-//    {
-//        $data = [
-//            "bank_id" => 1,
-//            "account_name" => "William",
-//            "account_type" => "savings",
-//            "account_number" => "0123456789"
-//        ];
-//
-//        $response = $this->withToken($this->token)->postJson('api/user/bank/account', $data);
-//
-//
-//
-//        $response->assertOk();
-//        $response->assertJsonStructure(['data']);
-//        $response->assertJson(['message' => "Success"]);
-//    }
+    public function testUserCanSaveBankAccountDetail()
+    {
+        $data = [
+            "bank_id" => 1,
+            "name" => "William",
+            "type" => "savings",
+            "number" => "0123456789"
+        ];
+
+        $response = $this->withToken($this->token)->postJson('api/user/bank/account', $data);
+
+
+
+        $response->assertOk();
+        $response->assertJsonStructure(['data']);
+        $response->assertJson(['message' => "Successful"]);
+    }
 
 
 
