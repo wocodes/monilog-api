@@ -112,8 +112,9 @@ class LoginController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'message' => self::SUCCESS_RESPONSE_MESSAGE
+            'expires_in' => auth()->factory()->getTTL() * 3600,
+            'account' => user()->only('name', 'email', 'setup_complete'),
+            'message' => self::SUCCESS_RESPONSE_MESSAGE,
         ]);
     }
 }

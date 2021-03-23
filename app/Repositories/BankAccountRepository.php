@@ -17,6 +17,12 @@ class BankAccountRepository extends BaseRepository
 
     public function create($request)
     {
-        return user()->bank_account()->create($request->all());
+        $user = user();
+        $saved_account = $user->bank_account()->updateOrCreate($request->all());
+
+        $user->setup_complete = 1;
+        $user->save();
+
+        return $saved_account;
     }
 }
