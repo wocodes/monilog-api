@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 class BankAccountController extends Controller
 {
 
-    public $bankAccountRepo;
+    private $bankAccountRepo;
 
     public function __construct(BankAccountRepository $bankAccountRepository)
     {

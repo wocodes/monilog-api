@@ -15,10 +15,12 @@ class WalletTypeSeeder extends Seeder
             [
                 'name' => 'savings',
                 'slug' => 'savings',
+                "created_at" => now()
             ],
             [
                 'name' => 'investments',
                 'slug' => 'investments',
+                "created_at" => now()
             ],
         ];
 

@@ -15,9 +15,9 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+//            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('transaction_type_id');
-            $table->unsignedBigInteger('transaction_category_id');
+            $table->unsignedBigInteger('transaction_mode_id');
             $table->unsignedBigInteger('wallet_id')->nullable();
             $table->double('amount', 10, 2);
             $table->string('transaction_reference')->nullable();
@@ -27,11 +27,11 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('transaction_type_id')->references('id')->on('transaction_types')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('transaction_category_id')->references('id')->on('transaction_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('transaction_mode_id')->references('id')->on('transaction_modes')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('wallet_id')->references('id')->on('wallets')->onUpdate('cascade')->onDelete('cascade');
         });

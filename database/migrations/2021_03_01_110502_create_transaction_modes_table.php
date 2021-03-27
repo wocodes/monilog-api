@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsCategoriesTable extends Migration
+class CreateTransactionModesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTransactionsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions_categories', function (Blueprint $table) {
+        Schema::create('transaction_modes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');

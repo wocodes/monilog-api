@@ -15,24 +15,24 @@ class BaseRepository implements BaseInterface
     {
         $this->model = $model;
     }
-
-    public function create($request)
-    {
-        // TODO: Implement create() method.
-    }
+//
+//    public function create($request)
+//    {
+//        // TODO: Implement create() method.
+//    }
 
     public function read()
     {
         return $this->model->all();
     }
 
-    public function update($request)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete()
-    {
-        // TODO: Implement delete() method.
-    }
+//    public function update($request)
+//    {
+//        // TODO: Implement update() method.
+//    }
+//
+//    public function delete()
+//    {
+//        // TODO: Implement delete() method.
+//    }
 }
