@@ -21,7 +21,7 @@ class Controller extends BaseController
       "Internal Server Error" => 500,
     ];
 
-    public function successResponse($data, $message, $response = 200)
+    public function successResponse($data, $message, $response = "OK")
     {
         $data = [
             "success" => true,
@@ -33,7 +33,7 @@ class Controller extends BaseController
     }
 
 
-    public function errorResponse($data = null, $message = null, $response = 400)
+    public function errorResponse($data = null, $message = null, $response = "Not Found")
     {
         $data = [
             "success" => false,

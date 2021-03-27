@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -35,9 +37,9 @@ class SavingsTest extends TestCase
    public function testUserCanLogSavingsTransactionToWallet()
    {
        $data = [
-           "amount" => 5000,
-           "locked" => 1,
-           "lock_duration" => 2,
+           "amount" => $this->faker->randomNumber(),
+           "locked" => $this->faker->boolean,
+           "lock_duration" => $this->faker->numberBetween(1, 30),
            "reference" => uniqid('LOC'),
            "wallet_type" => "savings",
            "mode" => "card"
@@ -51,7 +53,27 @@ class SavingsTest extends TestCase
 
    public function testUserCanFetchAllSavings()
    {
+       // create a user from factory
+        $user = factory(User::class)->create();
 
+       // create the user's wallet data from factory
+        $wallet = factory(Wallet::class)->create(['user_id' => $user->id]);
+
+       // create the 5 user's wallet data transaction from factory
+        factory(Transaction::class, 5)->create([
+            'wallet_id' => $wallet->id,
+            'amount' => $wallet->available_balance/5
+        ]);
+
+
+        // authenticates the created user, so as to fetch the created savings
+        $this->authenticateUser($user);
+
+        $response = $this->withToken($this->token)->getJson('/api/user/log/savings');
+
+        $response->assertOk();
+        $response->assertJsonStructure(['status' => 'success']);
+        $response->assertJsonStructure(['data']);
    }
 
 
@@ -59,12 +81,10 @@ class SavingsTest extends TestCase
 
 
 
-
-
-
-    private function authenticateUser()
+    private function authenticateUser($user = null)
     {
-        $user = factory(User::class)->create();
+        $user = $user ?: factory(User::class)->create();
+
         $response = $this->postJson('api/auth/login', ["email" => $user->email, "password" => "password"]);
         $data = $response->json();
 

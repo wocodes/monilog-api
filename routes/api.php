@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function ($router) {
     Route::prefix('user')->group(function($router) {
         Route::post('bank/account', 'BankAccountController@store');
         Route::post('log/savings', 'SavingsLogController@store');
+        Route::get('log/savings', 'SavingsLogController@index');
     });
 
     Route::prefix('banks')->group(function($router) {

@@ -84,8 +84,10 @@ class WalletRepository extends BaseRepository
 
 
     public function fetch($data) {
-        return $this->user->wallets()->whereHas('walletType', function($q) use($data) {
+        $wallet = $this->user->wallets()->whereHas('walletType', function($q) use($data) {
                     $q->where('name', $data['name']);
-                })->orderBy('created_at')->get();
+                })->orderBy('created_at')->first();
+
+        return $wallet->transactions()->select('id','amount','created_at')->get();
     }
 }
