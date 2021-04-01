@@ -72,7 +72,7 @@ class WalletRepository extends BaseRepository
             "transaction_type_id" => $transaction_type->id,
             "transaction_mode_id" => $transaction_mode->id,
             "amount" => $request->amount,
-            "transaction_reference" => $request->reference,
+            "transaction_reference" => uniqid('LOC'),
             "locked" => $request->locked,
             "lock_duration_in_days" => $request->lock_duration,
             "lock_duration_end_date" => Carbon::now()->addDays($request->lock_duration),
@@ -83,11 +83,16 @@ class WalletRepository extends BaseRepository
 
 
 
-    public function fetch($data) {
+    public function fetch($data, $request = null) {
+        if($request) $params = $request->query();
+
         $wallet = $this->user->wallets()->whereHas('walletType', function($q) use($data) {
                     $q->where('name', $data['name']);
-                })->orderBy('created_at')->first();
+                })->first();
 
-        return $wallet->transactions()->select('id','amount','created_at')->get();
+        $transactions = $wallet->transactions()->orderBy('created_at', 'DESC')->select('id','amount','created_at', 'wallet_id')->get();
+        if(!empty($params['limit'])) $transactions = $transactions->take($params['limit']);
+
+        return $transactions;
     }
 }

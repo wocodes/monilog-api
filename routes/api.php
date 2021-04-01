@@ -29,6 +29,9 @@ Route::middleware('auth:api')->group(function ($router) {
         Route::post('bank/account', 'BankAccountController@store');
         Route::post('log/savings', 'SavingsLogController@store');
         Route::get('log/savings', 'SavingsLogController@index');
+
+
+        Route::get('dashboard/stats', 'UserController@fetchDashboardStat');
     });
 
     Route::prefix('banks')->group(function($router) {

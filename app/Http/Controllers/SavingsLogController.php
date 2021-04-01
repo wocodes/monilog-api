@@ -26,10 +26,10 @@ class SavingsLogController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         $data = ["name" => "savings"];
-        $response = $this->walletRepository->fetch($data);
+        $response = $this->walletRepository->fetch($data, $request);
 
         return $this->successResponse($response, "Savings list fetched");
     }
